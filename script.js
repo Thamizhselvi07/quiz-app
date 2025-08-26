@@ -1,60 +1,32 @@
-let current = 0, total = 5; // example total (set according to your quiz)
-
-// Initialize app
-function init() {
-  console.log("Quiz ready!");
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  margin: 0; padding: 0;
 }
-
-// Start quiz
-function startQuiz() {
-  document.getElementById("start-screen").classList.add("hidden");
-  document.getElementById("quiz-screen").classList.remove("hidden");
-  current = 0;
-  updateProgress();
-  renderQuestion();
+.screen { display: none; padding: 20px; }
+.active { display: block; }
+h1, h2, h3 { margin: 10px 0; }
+button {
+  background: #007bff; color: white;
+  padding: 10px 20px; border: none;
+  border-radius: 8px; margin: 10px 0;
+  cursor: pointer; font-size: 16px;
 }
-
-// Next question
-function nextQuestion() {
-  if (current < total) {
-    current++;
-    updateProgress();
-    renderQuestion();
-  } else {
-    document.getElementById("congrats").textContent = "🎉 You completed the quiz!";
-  }
+button:hover { background: #0056b3; }
+.options button {
+  display: block; width: 100%;
+  margin: 8px 0; text-align: left;
+  background: #fff; color: #333;
+  border: 1px solid #ccc;
 }
-
-// Update progress bar
-function updateProgress() {
-  document.getElementById("progress").style.width = ((current/total) * 100) + "%";
+.options button.selected {
+  background: #cce5ff;
+  border-color: #007bff;
 }
-
-// Render question (placeholder)
-function renderQuestion() {
-  document.getElementById("question-text").textContent = "Question " + (current + 1) + " goes here.";
-  const options = document.getElementById("options");
-  options.innerHTML = "";
-
-  ["Option A", "Option B", "Option C", "Option D"].forEach((opt, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = opt;
-    btn.onclick = () => selectAnswer(i);
-    options.appendChild(btn);
-  });
+.progress-bar {
+  height: 10px; background: #ddd; border-radius: 5px;
+  margin: 10px 0; overflow: hidden;
 }
-
-// Handle answer selection
-function selectAnswer(index) {
-  document.getElementById("feedback").textContent = "You selected option " + (index + 1);
-}
-
-// Save settings (dummy for now)
-function saveSettings() {
-  console.log("Settings saved");
-}
-
-// Dummy working set builder
-function buildWorkingSet() {
-  console.log("Working set built");
+.progress-fill {
+  height: 10px; background: #007bff; width: 0%;
 }
