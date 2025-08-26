@@ -1,138 +1,102 @@
-/* Reset & base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, sans-serif;
+let difficulty = 'Beginner';
+let language = 'en';
+let currentIndex = 0, score = 0, quizSet = [];
+let progress = [];
+
+// Example dataset (replace with your full JSON)
+const dataset = {
+  Beginner: [
+    {
+      question_en: "What is the boiling point of water?",
+      question_ta: "நீரின் கொதிநிலை என்ன?",
+      options_en: ["90°C", "100°C", "120°C", "80°C"],
+      options_ta: ["90°C", "100°C", "120°C", "80°C"],
+      answer: 1
+    },
+    {
+      question_en: "Which planet is known as the Red Planet?",
+      question_ta: "சிவப்பு கோள் என்று அழைக்கப்படும் கோள் எது?",
+      options_en: ["Mars", "Venus", "Jupiter", "Saturn"],
+      options_ta: ["செவ்வாய்", "சுக்ரன்", "குரு", "சனி"],
+      answer: 0
+    }
+  ],
+  Intermediate: [],
+  Advanced: []
+};
+
+// Navigation
+function goTo(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screen).classList.add('active');
+  if (screen === "progress") showProgress();
 }
 
-body {
-  background: #f3f4f6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 1rem;
+// Settings
+function setDifficulty(lvl) { difficulty = lvl; }
+function setLanguage(lang) { language = lang; }
+
+// Start Quiz
+function startQuiz() {
+  quizSet = dataset[difficulty];
+  currentIndex = 0; score = 0;
+  goTo('quiz');
+  loadQuestion();
 }
 
-.container {
-  width: 100%;
-  max-width: 700px;
-  background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  animation: fadeIn 0.6s ease-in-out;
+// Load Question
+function loadQuestion() {
+  let q = quizSet[currentIndex];
+  document.getElementById('quizQuestion').innerText =
+    language === 'en' ? q.question_en : q.question_ta;
+  let opts = language === 'en' ? q.options_en : q.options_ta;
+  
+  let optHtml = '';
+  opts.forEach((opt, i) => {
+    optHtml += `<button onclick="selectOption(${i})" id="opt${i}">${opt}</button>`;
+  });
+  document.getElementById('quizOptions').innerHTML = optHtml;
+  
+  updateProgress();
+  selected = null;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+let selected = null;
+function selectOption(i) {
+  selected = i;
+  document.querySelectorAll('#quizOptions button').forEach(btn => btn.classList.remove('selected'));
+  document.getElementById('opt'+i).classList.add('selected');
 }
 
-.title {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+// Submit Answer
+function submitAnswer() {
+  if (selected === null) return alert("Choose an option!");
+  if (selected === quizSet[currentIndex].answer) score++;
+  
+  currentIndex++;
+  if (currentIndex < quizSet.length) {
+    loadQuestion();
+  } else {
+    showResults();
+  }
 }
 
-.subtitle {
-  font-size: 1rem;
-  opacity: 0.8;
-  margin-bottom: 1.5rem;
-  color: #666;
+// Results
+function showResults() {
+  goTo('results');
+  document.getElementById('resultText').innerText = "Quiz Completed!";
+  document.getElementById('scoreText').innerText = `Score: ${score} / ${quizSet.length}`;
+  
+  progress.push({ level: difficulty, score: Math.round(score/quizSet.length*100) });
 }
 
-button {
-  background: #4f46e5;
-  border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-  margin-top: 1rem;
+// Progress
+function updateProgress() {
+  let percent = Math.round(((currentIndex+1)/quizSet.length)*100);
+  document.getElementById('quizProgress').style.width = percent+'%';
 }
 
-button:hover {
-  background: #4338ca;
-  transform: scale(1.05);
-}
-
-.controls {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-label {
-  font-weight: bold;
-  margin-right: 0.5rem;
-}
-
-select {
-  padding: 0.4rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-}
-
-#question-box {
-  margin-top: 1rem;
-}
-
-#question-text {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: #222;
-}
-
-#options button {
-  display: block;
-  width: 100%;
-  margin: 0.5rem 0;
-  background: #f9fafb;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  padding: 0.7rem;
-  font-size: 1rem;
-  color: #333;
-  transition: 0.3s ease;
-}
-
-#options button:hover {
-  background: #e0e7ff;
-  border-color: #4f46e5;
-}
-
-#feedback, #congrats {
-  margin-top: 0.8rem;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #444;
-}
-
-.progress-bar {
-  height: 12px;
-  width: 100%;
-  background: #e5e7eb;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 1rem;
-}
-
-.progress {
-  height: 100%;
-  width: 0%;
-  background: #4f46e5;
-  transition: width 0.3s ease;
-}
-
-.hidden {
-  display: none;
+function showProgress() {
+  let html = progress.map(p => `${p.level}: ${p.score}%`).join("<br>");
+  document.getElementById('progressList').innerHTML = html || "No quizzes taken yet.";
 }
