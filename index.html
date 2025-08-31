@@ -1,41 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Science Quiz</title>
-  <link rel="stylesheet" href="style.css">
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interactive Science Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #007BFF;}
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+    </style>
 </head>
-<body>
-  <!-- Landing Page -->
-  <section id="landing">
-    <h1>Welcome to the Future of Science Learning</h1>
-    <button onclick="showLanguage()">Get Started</button>
-  </section>
+<body class="bg-white text-gray-800">
+<div class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-8">
+<div class="absolute inset-0 bg-[url('image-06d9a5b3-3a13-4155-a08d-8a6c8e31a89d')] bg-cover bg-center opacity-10"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<h1 class="text-5xl font-bold tracking-tight text-gray-900 md:text-7xl">
+                Welcome to the Future of Science Learning
+            </h1>
+<p class="mt-6 max-w-2xl text-lg text-gray-600 md:text-xl">
+                Dive into an immersive world of discovery. Our interactive platform makes complex scientific concepts simple, engaging, and fun.
+            </p>
+<div class="mt-10">
+<button class="flex items-center justify-center rounded-full bg-[var(--primary-color)] px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-105">
+                    Get Started
+                </button>
+</div>
+</div>
+<div class="absolute bottom-10 flex flex-col items-center gap-4">
+<span class="text-sm text-gray-500">Powered by</span>
+<div class="flex items-center gap-2">
+<svg class="h-6 w-6 text-[var(--primary-color)]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.25 6.087c0-.66.537-1.197 1.197-1.197h.01a1.197 1.197 0 0 1 1.196 1.196v1.196A1.197 1.197 0 0 1 15.457 8.48h-.01a1.197 1.197 0 0 1-1.196-1.197v-1.2h.001ZM11.249 3.69a1.197 1.197 0 0 0-1.196 1.196v1.197c0 .66.536 1.196 1.196 1.196h.01a1.197 1.197 0 0 0 1.197-1.196v-1.197A1.197 1.197 0 0 0 11.26 3.69h-.01Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M3.75 12.749c0-.66.537-1.196 1.197-1.196h.01c.66 0 1.196.536 1.196 1.196v1.197c0 .66-.536 1.196-1.196 1.196h-.01a1.197 1.197 0 0 1-1.197-1.196v-1.197ZM8.25 16.499c0-.66.537-1.197 1.197-1.197h.01c.66 0 1.197.537 1.197 1.197v1.196a1.197 1.197 0 0 1-1.197 1.197h-.01a1.197 1.197 0 0 1-1.197-1.196v-1.197Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M13.5 15.375c0 .66-.537 1.196-1.197 1.196h-.01a1.196 1.196 0 0 1-1.196-1.196v-1.197c0-.66.536-1.196 1.196-1.196h.01c.66 0 1.197.536 1.197 1.196v1.197Z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xl font-bold text-gray-900">QuantumLeap</span>
+</div>
+</div>
+</div>
 
-  <!-- Language Selection -->
-  <section id="language" class="hidden">
-    <h2>Choose Your Language</h2>
-    <button onclick="setLanguage('en')">English</button>
-    <button onclick="setLanguage('ta')">தமிழ்</button>
-  </section>
-
-  <!-- Difficulty Selection -->
-  <section id="difficulty" class="hidden">
-    <h2>Choose Your Challenge</h2>
-    <button onclick="setDifficulty('beginner')">Beginner</button>
-    <button onclick="setDifficulty('intermediate')">Intermediate</button>
-    <button onclick="setDifficulty('advanced')">Advanced</button>
-  </section>
-
-  <!-- Quiz Section -->
-  <section id="quiz" class="hidden">
-    <h2 id="question-text"></h2>
-    <div id="options"></div>
-    <button onclick="nextQuestion()">Submit Answer</button>
-    <p id="feedback"></p>
-  </section>
-
-  <script src="script.js"></script>
-</body>
-</html>
+</body></html>
