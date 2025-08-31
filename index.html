@@ -1,59 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Science Quiz App</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bilingual Science Quiz</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 font-sans text-gray-900">
 
-<!-- Home Screen -->
-<div id="home" class="screen active">
-  <h1>Welcome!</h1>
-  <p>Choose your difficulty & language to start the quiz.</p>
-  <button onclick="goTo('settings')">Start Quiz</button>
-  <button onclick="goTo('progress')">View Progress</button>
-</div>
+  <!-- Header -->
+  <header class="flex items-center justify-between p-6 bg-white shadow">
+    <h1 class="text-2xl font-bold text-blue-600">🔬 Science Board</h1>
+    <button id="langToggle" class="px-4 py-2 rounded bg-blue-500 text-white">
+      Switch to தமிழ்
+    </button>
+  </header>
 
-<!-- Settings -->
-<div id="settings" class="screen">
-  <h2>Quiz Settings</h2>
-  <p><b>Difficulty:</b></p>
-  <button onclick="setDifficulty('Beginner')">Beginner</button>
-  <button onclick="setDifficulty('Intermediate')">Intermediate</button>
-  <button onclick="setDifficulty('Advanced')">Advanced</button>
-  
-  <p><b>Language:</b></p>
-  <button onclick="setLanguage('en')">English</button>
-  <button onclick="setLanguage('ta')">தமிழ்</button>
-  
-  <br><br>
-  <button onclick="startQuiz()">Start Quiz</button>
-</div>
+  <!-- Main -->
+  <main class="flex justify-center py-10 px-4">
+    <div class="max-w-2xl w-full bg-white p-6 rounded-2xl shadow-lg">
+      <h2 id="question" class="text-2xl font-bold text-center mb-6">Loading...</h2>
+      <div id="options" class="grid grid-cols-1 gap-4"></div>
+      <div class="flex justify-center mt-8">
+        <button id="submitBtn" class="btn-primary">Submit Answer</button>
+      </div>
+      <p id="feedback" class="text-center mt-4 font-medium"></p>
+      <p id="streakMsg" class="text-center mt-2 text-green-600 font-bold"></p>
+    </div>
+  </main>
 
-<!-- Quiz -->
-<div id="quiz" class="screen">
-  <div class="progress-bar"><div id="quizProgress" class="progress-fill"></div></div>
-  <h2 id="quizQuestion"></h2>
-  <div id="quizOptions" class="options"></div>
-  <button onclick="submitAnswer()">Submit</button>
-</div>
-
-<!-- Results -->
-<div id="results" class="screen">
-  <h2 id="resultText"></h2>
-  <p id="scoreText"></p>
-  <button onclick="goTo('progress')">View Progress</button>
-  <button onclick="goTo('home')">Home</button>
-</div>
-
-<!-- Progress -->
-<div id="progress" class="screen">
-  <h2>Your Progress</h2>
-  <p id="progressList"></p>
-  <button onclick="goTo('home')">Back Home</button>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
