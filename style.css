@@ -1,102 +1,37 @@
-let difficulty = 'Beginner';
-let language = 'en';
-let currentIndex = 0, score = 0, quizSet = [];
-let progress = [];
-
-// Example dataset (replace with your full JSON)
-const dataset = {
-  Beginner: [
-    {
-      question_en: "What is the boiling point of water?",
-      question_ta: "நீரின் கொதிநிலை என்ன?",
-      options_en: ["90°C", "100°C", "120°C", "80°C"],
-      options_ta: ["90°C", "100°C", "120°C", "80°C"],
-      answer: 1
-    },
-    {
-      question_en: "Which planet is known as the Red Planet?",
-      question_ta: "சிவப்பு கோள் என்று அழைக்கப்படும் கோள் எது?",
-      options_en: ["Mars", "Venus", "Jupiter", "Saturn"],
-      options_ta: ["செவ்வாய்", "சுக்ரன்", "குரு", "சனி"],
-      answer: 0
-    }
-  ],
-  Intermediate: [],
-  Advanced: []
-};
-
-// Navigation
-function goTo(screen) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(screen).classList.add('active');
-  if (screen === "progress") showProgress();
+body {
+  font-family: "Noto Sans", "Spline Sans", sans-serif;
 }
 
-// Settings
-function setDifficulty(lvl) { difficulty = lvl; }
-function setLanguage(lang) { language = lang; }
-
-// Start Quiz
-function startQuiz() {
-  quizSet = dataset[difficulty];
-  currentIndex = 0; score = 0;
-  goTo('quiz');
-  loadQuestion();
+.btn-primary {
+  min-width: 150px;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 9999px;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
 }
 
-// Load Question
-function loadQuestion() {
-  let q = quizSet[currentIndex];
-  document.getElementById('quizQuestion').innerText =
-    language === 'en' ? q.question_en : q.question_ta;
-  let opts = language === 'en' ? q.options_en : q.options_ta;
-  
-  let optHtml = '';
-  opts.forEach((opt, i) => {
-    optHtml += `<button onclick="selectOption(${i})" id="opt${i}">${opt}</button>`;
-  });
-  document.getElementById('quizOptions').innerHTML = optHtml;
-  
-  updateProgress();
-  selected = null;
+.btn-primary:hover {
+  background-color: #2563eb;
 }
 
-let selected = null;
-function selectOption(i) {
-  selected = i;
-  document.querySelectorAll('#quizOptions button').forEach(btn => btn.classList.remove('selected'));
-  document.getElementById('opt'+i).classList.add('selected');
+.option {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: border 0.2s, background-color 0.2s;
 }
 
-// Submit Answer
-function submitAnswer() {
-  if (selected === null) return alert("Choose an option!");
-  if (selected === quizSet[currentIndex].answer) score++;
-  
-  currentIndex++;
-  if (currentIndex < quizSet.length) {
-    loadQuestion();
-  } else {
-    showResults();
-  }
+.option:hover {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
 }
 
-// Results
-function showResults() {
-  goTo('results');
-  document.getElementById('resultText').innerText = "Quiz Completed!";
-  document.getElementById('scoreText').innerText = `Score: ${score} / ${quizSet.length}`;
-  
-  progress.push({ level: difficulty, score: Math.round(score/quizSet.length*100) });
-}
-
-// Progress
-function updateProgress() {
-  let percent = Math.round(((currentIndex+1)/quizSet.length)*100);
-  document.getElementById('quizProgress').style.width = percent+'%';
-}
-
-function showProgress() {
-  let html = progress.map(p => `${p.level}: ${p.score}%`).join("<br>");
-  document.getElementById('progressList').innerHTML = html || "No quizzes taken yet.";
+.option.selected {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
 }
