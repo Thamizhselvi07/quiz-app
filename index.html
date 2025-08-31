@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bilingual Science Quiz</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Quiz</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body>
+  <!-- Landing Page -->
+  <section id="landing">
+    <h1>Welcome to the Future of Science Learning</h1>
+    <button onclick="showLanguage()">Get Started</button>
+  </section>
 
-  <!-- Header -->
-  <header class="flex items-center justify-between p-6 bg-white shadow">
-    <h1 class="text-2xl font-bold text-blue-600">🔬 Science Board</h1>
-    <button id="langToggle" class="px-4 py-2 rounded bg-blue-500 text-white">
-      Switch to தமிழ்
-    </button>
-  </header>
+  <!-- Language Selection -->
+  <section id="language" class="hidden">
+    <h2>Choose Your Language</h2>
+    <button onclick="setLanguage('en')">English</button>
+    <button onclick="setLanguage('ta')">தமிழ்</button>
+  </section>
 
-  <!-- Main -->
-  <main class="flex justify-center py-10 px-4">
-    <div class="max-w-2xl w-full bg-white p-6 rounded-2xl shadow-lg">
-      <h2 id="question" class="text-2xl font-bold text-center mb-6">Loading...</h2>
-      <div id="options" class="grid grid-cols-1 gap-4"></div>
-      <div class="flex justify-center mt-8">
-        <button id="submitBtn" class="btn-primary">Submit Answer</button>
-      </div>
-      <p id="feedback" class="text-center mt-4 font-medium"></p>
-      <p id="streakMsg" class="text-center mt-2 text-green-600 font-bold"></p>
-    </div>
-  </main>
+  <!-- Difficulty Selection -->
+  <section id="difficulty" class="hidden">
+    <h2>Choose Your Challenge</h2>
+    <button onclick="setDifficulty('beginner')">Beginner</button>
+    <button onclick="setDifficulty('intermediate')">Intermediate</button>
+    <button onclick="setDifficulty('advanced')">Advanced</button>
+  </section>
+
+  <!-- Quiz Section -->
+  <section id="quiz" class="hidden">
+    <h2 id="question-text"></h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Submit Answer</button>
+    <p id="feedback"></p>
+  </section>
 
   <script src="script.js"></script>
 </body>
